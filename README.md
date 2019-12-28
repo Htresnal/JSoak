@@ -1,5 +1,5 @@
 # JSoak
-## Version 0.1
+## Version 0.2
 Converts DOM elements with specific attributes attached, into a JS object structure.
 JavaScript + JQuery library for data extraction.
 

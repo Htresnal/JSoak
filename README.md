@@ -9,7 +9,7 @@ JQuery version 3.4.1 or any other compatible version
 ## Installation
 Just include the script to your page:
 ```html
-<script type="text/javascript" src="jsoak-v.0.1.js"></script>
+<script type="text/javascript" src="jsoak-v.0.2.js"></script>
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ JSoak fields are the elements with an accessible value attribute( $(elem).val() 
 *Result:*
 ```json
 {
-    "new-field": "value"
+  "new-field": "value"
 }
 ```
 
@@ -37,9 +37,9 @@ JSoak folders are considered root elements to other fields and folders, if they 
 *Result:*
 ```json
 {
-    "parent-folder": {
-        "child-field": "Text value here"
-    }
+  "parent-folder": {
+    "child-field": "Text value here"
+  }
 }
 ```
 
@@ -48,7 +48,6 @@ There are 2 ways to launch the method:
 ```js
 var result = JSoak("#jsoak-root");
 // OR
-};
 var result = JSoak({
     target: "#jsoak-root",
     onGather: function(root, fieldName, value){

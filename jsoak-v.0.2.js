@@ -1,5 +1,5 @@
 /**
- * JSoak v.0.1
+ * JSoak v.0.2
  * 
  * License: MIT,
  * Author: Htresnal
@@ -35,11 +35,12 @@ function JSoak_getElement(settings, root, $target){
     if ($target.attr("jsoak-field")){
         // The element is a JSoak field
         var targetValue = $target.val();
+        var fieldName = $target.attr("jsoak-field");
 
         result = {
             type: "field",
-            name: $target.attr("jsoak-field"),
-            value: (targetValue)? settings.onGather(root, targetValue) : settings.onGather(root, $target.text())
+            name: fieldName,
+            value: (targetValue)? settings.onGather(root, fieldName, targetValue) : settings.onGather(root, fieldName, $target.text())
         };
     } else if ($target.attr("jsoak-folder")){
         // The element is a JSoak folder
@@ -57,21 +58,27 @@ function JSoak(inSettings){
     var settings = {
         depth: inSettings.depth || 70,
         target: inSettings.target || undefined,
-        onGather: inSettings.onGather || function(root, value){ return value; }
+        onGather: inSettings.onGather || function(root, fieldName, value){ return value; }
     };
 
     if (typeof(inSettings) == "string"){
         settings.target = inSettings;
     }
 
-    if (!(settings.target)){
-        console.error("Need a root element to gather JSON structure!");
+    var $target = null;
+    if (settings.target){
+        var $tempTarget = $(settings.target);
+        if ($tempTarget.length > 0){
+            $target = $($tempTarget[0]);
+        }
+    }
+
+    if (!$target){
+        console.error("Need a root element to gather JS object structure!");
         return false;
     }
-    
+
     //BUILD
-    var $target = $(settings.target);
-    
     var structure = {};
     var result = JSoak_traverseChildren(settings, structure, $target);
 

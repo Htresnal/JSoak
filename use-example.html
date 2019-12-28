@@ -4,7 +4,7 @@
         Test page for JSoak abilities
     </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="jsoak-v.0.1.js"></script>
+    <script type="text/javascript" src="jsoak-v.0.2.js"></script>
 </head>
 <body style="background-color:#353535;">
     <h2>Example object:</h2>
@@ -27,7 +27,7 @@
     <script>
         var JSoak_settings = {
             target: "#jsoak-root",
-            onGather: function(root, value){
+            onGather: function(root, fieldName, value){
                 return $.trim(value);
             }
         };

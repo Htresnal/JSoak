@@ -60,17 +60,19 @@ JSoak array forms a JS array, using **jsoak-folder** and **jsoak-array** element
 
 *Result:*
 ```json
-"array": [
-  {
-    "field": "value"
-  },
-  {
-    "field": "value"
-  },
-  {
-    "field": "value"
-  }
-]
+{
+  "array": [
+    {
+      "field": "value"
+    },
+    {
+      "field": "value"
+    },
+    {
+      "field": "value"
+    }
+  ]
+}
 ```
 
 

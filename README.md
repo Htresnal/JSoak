@@ -108,7 +108,6 @@ For an in-use example, you may want to take a look at:
 
 ## Work in progress
 - Fix possible problem with passing a non-string, non-settings objects to the JSoak. May not be recognized as valid elements.
-- Add array recognizing(jsoak-array)
 - More checks for misuse.
 - Search depth limiting, including specifying the depth searching methods, like: Depth from root, and depth from the last valid JSoak element.
 - Remove JQuery function calls, and replace with pure JavaScript.

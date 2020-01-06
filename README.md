@@ -1,5 +1,5 @@
 # JSoak
-## Version 0.2
+## Version 0.3
 Converts DOM elements into a JS object structure using specific attributes as flags for data collection.
 JavaScript + JQuery library.
 
@@ -9,13 +9,13 @@ JQuery version 3.4.1 or any other compatible version
 ## Installation
 Just include the script to your page:
 ```html
-<script type="text/javascript" src="jsoak-v.0.2.js"></script>
+<script type="text/javascript" src="jsoak-v.0.3.js"></script>
 ```
 
 ## Usage
-JSoak allows to collect data off the DOM elements, keeping their original structure, or modifying it slightly. JSoak uses two types of elements: **jsoak-field** and **jsoak-folder**. The values of the attributes will be used as JS field names.
+JSoak allows to collect data off the DOM elements, keeping their original structure, or modifying it slightly. JSoak uses three types of elements: **jsoak-field**, **jsoak-folder** and **jsoak-array**. The values of the attributes will be used as JS field names.
 
-JSoak fields copy the DOM element's value using .val(), or .text() if the value attribute is not present.
+JSoak fields copy the DOM element's value using .val(), or .text(), if value attribute is not present.
 ```html
 <input jsoak-field="new-field" value="value" />
 ```
@@ -43,6 +43,37 @@ JSoak folders are considered root elements to fields and folders inside it. Only
 }
 ```
 
+JSoak array forms a JS array, using **jsoak-folder** and **jsoak-array** elements for array entries. Keep in mind, that you are only allowed to place array entry elements at the root level of the JSoak array. Folder names are ignored.
+```html
+<div jsoak-array="array">
+    <div jsoak-folder>
+        <div jsoak-field="field">value</div>
+    </div>
+    <div jsoak-folder>
+        <div jsoak-field="field">value</div>
+    </div>
+    <div jsoak-folder>
+        <div jsoak-field="field">value</div>
+    </div>
+</div>
+```
+
+*Result:*
+```json
+"array": [
+  {
+    "field": "value"
+  },
+  {
+    "field": "value"
+  },
+  {
+    "field": "value"
+  }
+]
+```
+
+
 To begin parsing of your DOM structure, you need to call JSoak method:
 ```js
 var result = JSoak("#jsoak-root");
@@ -62,16 +93,17 @@ Available custom settings:
 2. Current JSoak field's name, 
 3. Field's result value.
 
-The function's return value is applied to the result JS object's field.
+The function's return value is applied to the result JS object's field. If the function's return value is *undefined*, then field is skipped.
 
 
 For an in-use example, you may want to take a look at:
 [use-example.html](https://github.com/Htresnal/JSoak/blob/master/use-example.html)
 
 ## Gotchas
-1. The parsing process of multiple **jsoak-field** or **jsoak-folder** elements of the same name will cause the previous ones to be overwritten(only if they are in the same folder).
+1. The parsing process of multiple JSoak elements of the same name will cause previous ones to be overwritten(but only if on the same folder level).
 2. Be careful when passing a selector for multiple elements to the JSoak method - only the first element will be parsed.
-3. Keep in mind, that this script's search depth is not only infinite, but also checks EVERY child element. You may not want to use it on elements with too many children. 
+3. Keep in mind, that this script's search depth is not only infinite, but also checks EVERY child element. You may not want to use it on elements with too many children.
+4. **jsoak-array** only considers its direct children, marked as JSoak folders or JSoak arrays. Any element that is not marked will be ignored.
 
 
 ## Work in progress
@@ -87,3 +119,7 @@ v.0.1:
 
 v.0.2:
 - Removed erroneous usage of multiple selector targets
+
+v.0.3:
+- Added **jsoak-array**
+- Improved onGather: Returning *undefined*, now causes field to be skipped.

@@ -4,26 +4,56 @@
         Test page for JSoak abilities
     </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="jsoak-v.0.2.js"></script>
+    <script type="text/javascript" src="jsoak-v.0.3.js"></script>
+
+    <style>
+        .inside-style{
+            margin-left: 5px; 
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body style="background-color:#353535;">
     <h2>Example object:</h2>
-    <div id="jsoak-root" style="display: inline-block; background-color:red; min-width:50px; min-height:50px">
-        <div jsoak-folder="child-folder" style="overflow: hidden; display: none;">
+    <div id="jsoak-root" style="display: inline-block; background-color:aqua; min-width:50px; min-height:50px">
+        <div jsoak-field="child-field" class="inside-style" style="background-color: lightgreen;">
+            value
+        </div>
+        <div jsoak-field="child-field-2" class="inside-style" style="background-color: lightgreen;">
+            value
+        </div>
+        
+        <div jsoak-folder="child-folder" class="inside-style" style="background-color: darkorange;">
             <div id="justsomediv">
-                <div jsoak-field="MeChild3">MeChild3</div>
+                <div jsoak-field="inner-child-field" class="inside-style" style="background-color: lightgreen;">inner value</div>
+                <div jsoak-folder="inner-child-folder" class="inside-style" style="background-color: darkolivegreen;">
+                    <div jsoak-folder="inner-child-folder-tier-2" class="inside-style" style="background-color: gold;">
+                        <div jsoak-folder="inner-child-folder-tier-3" class="inside-style" style="background-color: yellow;">
+                            <div jsoak-field="inner-child-field-tier-3" class="inside-style" style="background-color: lightgreen;">inner value</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div jsoak-field="MeChild" style="background-color: green; width:40px; height:25px; margin-left: 5px; margin-right: 5px;">
-            MeChild
-        </div>
-        <div jsoak-field="MeChild2" style="background-color: green; width:40px; height:25px; margin-left: 5px; margin-right: 5px;">
-            MeChild2
+
+        <div jsoak-array="child-array" class="inside-style" style="background-color: blue;">
+            <div jsoak-folder>
+                <div jsoak-field="array-elem-field" class="inside-style" style="background-color: lightgreen;">array value
+                </div>
+            </div>
+            <div jsoak-folder>
+                <div jsoak-field="array-elem-field" class="inside-style" style="background-color: lightgreen;">array value
+                </div>
+            </div>
+            <div jsoak-folder>
+                <div jsoak-field="array-elem-field" class="inside-style" style="background-color: lightgreen;">array value
+                </div>
+            </div>
         </div>
     </div>
     <hr style="border-color: black;">
     <h2>Resulting JSON:</h2>
-    <textarea id="resultField" style="width: 330px;" disabled></textarea>
+    <textarea id="resultField" style="width: 420px;" disabled></textarea>
     <script>
         var JSoak_settings = {
             target: "#jsoak-root",
